@@ -145,6 +145,7 @@ function Landing() {
       <WhyTafweej />
       <Team />
       <Vision />
+      <StayTuned />
       <Footer />
     </div>
   );
@@ -232,7 +233,7 @@ function Hero() {
           <Reveal delay={240}>
             <p className="mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
               Predicting crowd congestion <span className="text-foreground">before it happens</span> using
-              Computer Vision and Deep Learning — protecting millions of pilgrims through intelligent
+              Computer Vision and Deep Learning, protecting millions of pilgrims through intelligent
               early warning, <span className="text-[color:var(--gold)]">5–15 minutes</span> in advance.
             </p>
           </Reveal>
@@ -240,12 +241,9 @@ function Hero() {
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <a
                 href="#solution"
-                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[var(--gradient-emerald)] px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:scale-[1.02]"
+                className="glass inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-white/[0.06]"
               >
                 View Architecture
-                <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 5l7 7-7 7"/>
-                </svg>
               </a>
               <a
                 href="#dashboard"
@@ -272,32 +270,6 @@ function Hero() {
           </Reveal>
         </div>
 
-        {/* Right: floating stat card */}
-        <div className="hidden lg:col-span-4 lg:block">
-          <div className="relative">
-            <div className="animate-ring-rotate absolute -inset-12 rounded-full border border-dashed border-[color:var(--emerald-glow)]/20" />
-            <div className="glass-strong relative animate-float rounded-3xl p-6 shadow-[var(--shadow-elegant)]">
-              <div className="mb-4 flex items-center justify-between">
-                <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Live · Mataf Zone</span>
-                <span className="flex items-center gap-1.5 text-[10px] text-[color:var(--emerald-glow)]">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--emerald-glow)] opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[color:var(--emerald-glow)]" />
-                  </span>
-                  LIVE
-                </span>
-              </div>
-              <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Density Forecast (t+12m)</div>
-              <div className="mt-2 font-display text-5xl font-bold text-gradient-emerald">7.2<span className="text-2xl text-muted-foreground">/m²</span></div>
-              <MiniChart />
-              <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[10px]">
-                <div className="rounded-md bg-emerald-500/10 py-1.5 text-[color:var(--emerald-glow)]">SAFE</div>
-                <div className="rounded-md bg-yellow-500/10 py-1.5 text-yellow-400">WATCH</div>
-                <div className="rounded-md bg-red-500/20 py-1.5 font-semibold text-red-400 ring-1 ring-red-400/40">CRITICAL</div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -357,7 +329,7 @@ function Problem() {
     { v: 3, s: "M+", l: "Pilgrims gather in Makkah every year" },
     { v: 30, s: "s", l: "Traditional detection lag time" },
     { v: 6, s: "+/m²", l: "Density threshold for crush risk" },
-    { v: 100, s: "%", l: "Reactive systems — not predictive" },
+    { v: 100, s: "%", l: "Reactive systems, not predictive" },
   ];
   return (
     <section id="problem" className="relative py-32">
@@ -374,8 +346,8 @@ function Problem() {
             <Reveal delay={200}>
               <p className="mt-6 max-w-lg text-lg text-muted-foreground">
                 Every year, millions of pilgrims converge on Makkah. Existing crowd monitoring only
-                detects dangerous density <em>after</em> it becomes visible to human operators —
-                often too late for meaningful intervention.
+                detects dangerous density <em>after</em> it becomes visible to human operators.
+                This is often too late for meaningful intervention.
               </p>
             </Reveal>
 
@@ -461,14 +433,14 @@ function Problem() {
 /* ---------------- SOLUTION ---------------- */
 function Solution() {
   const steps = [
-    { t: "Camera Feeds", d: "Multi-angle CCTV streams across holy sites", icon: "camera" },
-    { t: "Frame Extraction", d: "OpenCV pipeline · optimized sampling", icon: "frame" },
-    { t: "CNN Density", d: "CSRNet estimates people/m² per frame", icon: "cnn" },
-    { t: "Density Maps", d: "Spatial heatmap of live congestion", icon: "map" },
-    { t: "Time Series", d: "Rolling temporal features per zone", icon: "series" },
-    { t: "LSTM Forecast", d: "5–15 minute density predictions", icon: "lstm" },
-    { t: "Risk Classification", d: "Safe · Watch · Warning · Critical", icon: "risk" },
-    { t: "Dashboard & Alerts", d: "Real-time ops interface · early warnings", icon: "bell" },
+    { t: "Watch Cameras", d: "Live video from holy sites monitors crowd movement", icon: "camera" },
+    { t: "Process Video", d: "System analyzes each frame to understand what's happening", icon: "frame" },
+    { t: "Count People", d: "Estimates how many people are in each area", icon: "cnn" },
+    { t: "Create Maps", d: "Shows crowd density as easy-to-read heatmaps", icon: "map" },
+    { t: "Track Patterns", d: "Studies how crowds change over time in each zone", icon: "series" },
+    { t: "Predict Future", d: "Forecasts crowd levels 5–15 minutes ahead", icon: "lstm" },
+    { t: "Assess Risk", d: "Classifies danger levels: Safe, Watch, Warning, Critical", icon: "risk" },
+    { t: "Send Alerts", d: "Notifies authorities immediately when risks rise", icon: "bell" },
   ];
   return (
     <section id="solution" className="relative py-32">
@@ -478,14 +450,14 @@ function Solution() {
           <Reveal><Eyebrow>Our Solution</Eyebrow></Reveal>
           <Reveal delay={100}>
             <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-              An end-to-end AI pipeline<br />
-              from <span className="text-gradient-emerald">pixel</span> to <span className="text-gradient-gold">prediction</span>.
+              A smart system that watches<br />
+              and <span className="text-gradient-emerald">predicts</span> crowd risks.
             </h2>
           </Reveal>
           <Reveal delay={200}>
             <p className="mt-6 text-lg text-muted-foreground">
-              Every frame flows through a chain of specialized models — turning raw video into
-              actionable, predictive intelligence for command centers.
+              We watch live video cameras, understand crowd movement, and warn authorities
+              before dangerous situations happen.
             </p>
           </Reveal>
         </div>
@@ -540,7 +512,7 @@ function StepIcon({ name }: { name: string }) {
 function HowAI() {
   const cards = [
     { t: "Computer Vision", d: "Deep CNNs extract crowd features from video frames in real time.", tag: "OpenCV · PyTorch" },
-    { t: "Crowd Density Estimation", d: "CSRNet regresses per-pixel density maps — no head detection required.", tag: "CSRNet" },
+    { t: "Crowd Density Estimation", d: "CSRNet regresses per-pixel density maps without head detection.", tag: "CSRNet" },
     { t: "LSTM Prediction", d: "Recurrent networks forecast density 5–15 minutes ahead of time.", tag: "PyTorch · LSTM" },
     { t: "Risk Classification", d: "Learned thresholds map forecasts to four risk tiers per zone.", tag: "ML Classifier" },
     { t: "Real-Time Alerts", d: "Ops center receives push, SMS and dashboard alerts as risk rises.", tag: "FastAPI · WebSocket" },
@@ -558,7 +530,7 @@ function HowAI() {
           </Reveal>
           <Reveal delay={150}>
             <p className="max-w-md text-muted-foreground">
-              Each subsystem is purpose-built and independently benchmarked — from raw pixel to
+              Each subsystem is purpose-built and independently benchmarked. It goes from raw pixel to
               risk score in under a second.
             </p>
           </Reveal>
@@ -895,7 +867,7 @@ function Tech() {
             <Reveal delay={200}>
               <p className="mt-6 text-muted-foreground">
                 Battle-tested open-source components composed into a production-ready inference
-                pipeline — fast, transparent, deployable.
+                pipeline that is fast, transparent, and deployable.
               </p>
             </Reveal>
           </div>
@@ -980,11 +952,11 @@ function WhyTafweej() {
 /* ---------------- TEAM ---------------- */
 function Team() {
   const team = [
-    { n: "Zamiche Nour", r: "AI Engineering" },
-    { n: "Sayah Maroua", r: "AI Engineering" },
-    { n: "Bourzak Douaa", r: "AI Engineering" },
-    { n: "Atoum Sirine", r: "AI Engineering" },
-    { n: "Bensaddek Kaouther", r: "AI Engineering" },
+    { n: "Zamiche Nour", r: "AI Student", github: "https://github.com/Nourzm", linkedin: "https://www.linkedin.com/in/nourzamiche/" },
+    { n: "Sayah Maroua", r: "AI Student", github: "https://github.com/Maroua0618", linkedin: "https://www.linkedin.com/in/maroua-sayah-997709284/" },
+    { n: "Bourzak Douaa", r: "AI Student", github: "https://github.com/douaabourzak", linkedin: "https://www.linkedin.com/in/douaa-bourzak/" },
+    { n: "Atoum Sirine", r: "AI Student", github: "https://github.com/siiiirine", linkedin: "https://www.linkedin.com/in/sirine-atoum-b394a6307/" },
+    { n: "Bensaddek Kaouther", r: "AI Student", github: "https://github.com/kaoutherbensaddek", linkedin: "https://www.linkedin.com/in/kaouther-bensaddek-7434162b8/" },
   ];
   return (
     <section id="team" className="relative py-32">
@@ -998,8 +970,7 @@ function Team() {
           </Reveal>
           <Reveal delay={200}>
             <p className="mt-6 text-muted-foreground">
-              AI Engineering students at <span className="text-foreground">ENSIA</span> · INJAZ Company
-              Program · builders of applied AI projects.
+              Engineering students · builders of applied projects.
             </p>
           </Reveal>
         </div>
@@ -1017,8 +988,17 @@ function Team() {
                 </div>
                 <div className="font-display text-base font-semibold leading-tight">{m.n}</div>
                 <div className="mt-1 text-xs text-muted-foreground">{m.r}</div>
-                <div className="mt-4 inline-block rounded-full border border-white/10 px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
-                  ENSIA · INJAZ
+                <div className="mt-4 flex items-center justify-center gap-3">
+                  <a href={m.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-foreground">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                  </a>
+                  <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-foreground">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
                 </div>
               </div>
             </Reveal>
@@ -1075,6 +1055,30 @@ function Vision() {
   );
 }
 
+/* ---------------- STAY TUNED ---------------- */
+function StayTuned() {
+  return (
+    <section className="relative py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <Reveal><Eyebrow>Coming Soon</Eyebrow></Reveal>
+          <Reveal delay={100}>
+            <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
+              Stay tuned.<br/><span className="text-gradient-emerald">We're just getting started.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="mt-6 text-lg text-muted-foreground">
+              We're working hard to bring Tafweej to life. Follow our journey as we develop
+              smarter safety solutions for pilgrims around the world.
+            </p>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- FOOTER ---------------- */
 function Footer() {
   return (
@@ -1090,7 +1094,7 @@ function Footer() {
               </div>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              Built with AI for a safer pilgrimage. Predicting crowd risks before they become emergencies.
+              Predicting crowd risks before they become emergencies.
             </p>
           </div>
           <div>
@@ -1104,14 +1108,12 @@ function Footer() {
           <div>
             <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Team</div>
             <div className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <div>ENSIA · INJAZ Company Program</div>
-              <div>AI Engineering Students</div>
+              <div>Engineering Students</div>
             </div>
           </div>
         </div>
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-8 text-xs text-muted-foreground md:flex-row md:items-center">
-          <div>© 2026 Tafweej. Built with AI for safer pilgrimage.</div>
-          <div className="font-arabic" dir="rtl">صُنع بالذكاء الاصطناعي من أجل حجٍّ أكثر أمانًا</div>
+          <div>© 2026 Tafweej.</div>
         </div>
       </div>
     </footer>
