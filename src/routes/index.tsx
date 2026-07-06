@@ -4,6 +4,291 @@ import heroHaram from "@/assets/hero-haram.jpg";
 import aiCrowd from "@/assets/ai-crowd.jpg";
 import minaImg from "@/assets/mina.jpg";
 
+const translations = {
+  ar: {
+    nav: {
+      problem: "المشكلة",
+      solution: "الحل",
+      dashboard: "لوحة التحكم",
+      tech: "التقنية",
+      team: "الفريق",
+    },
+    hero: {
+      title: "ذكاء اصطناعي",
+      subtitle: "لحج آمن",
+      description: "نتنبأ باكتظاظ الحشود قبل حدوثه باستخدام الرؤية الحاسوبية والتعلم العميق، نحمي ملايين الحجاج من خلال الإنذار المبكر",
+      earlyWarning: "5-15 دقيقة",
+      viewArchitecture: "عرض البنية",
+      exploreSolution: "استكشف الحل",
+      pilgrimsYearly: "2-3M",
+      pilgrimsLabel: "حاج سنوياً",
+      earlyWarningLabel: "إنذار مبكر",
+      monitoring: "24/7",
+      monitoringLabel: "مراقبة مستمرة",
+    },
+    problem: {
+      title: "الأنظمة التقليدية",
+      subtitle: "تتفاعل. بحلول ذلك الوقت، يكون قد فات الأوان.",
+      description: "كل عام، يتجمع ملايين الحجاج في مكة. أنظمة مراقبة الحشود الحالية تكتشف الكثافة الخطرة فقط بعد أن تصبح مرئية للمشغلين البشريين، وهو ما يكون غالباً متأخراً جداً للتدخل الفعال.",
+    },
+    solution: {
+      title: "نظام ذكي يراقب",
+      subtitle: "ويتنبأ بمخاطر الحشود.",
+      description: "نراقب كاميرات الفيديو المباشرة، نفهم حركة الحشود، ونحذر السلطات قبل حدوث المواقف الخطرة.",
+      steps: [
+        { t: "راقب الكاميرات", d: "فيديو مباشر من المواقع المقدسة يراقب حركة الحشود" },
+        { t: "معالجة الفيديو", d: "يحلل النظام كل إطار لفهم ما يحدث" },
+        { t: "عد الأشخاص", d: "يقدر عدد الأشخاص في كل منطقة" },
+        { t: "إنشاء خرائط", d: "يعرض كثافة الحشود كخرائط حرارية سهلة القراءة" },
+        { t: "تتبع الأنماط", d: "يدرس كيف تتغير الحشود بمرور الوقت في كل منطقة" },
+        { t: "التنبؤ بالمستقبل", d: "يتنبأ بمستويات الحشود 5-15 دقيقة مقدماً" },
+        { t: "تقييم المخاطر", d: "صنف مستويات الخطر: آمن، مراقبة، تحذير، حرج" },
+        { t: "إرسال تنبيهات", d: "يخطر السلطات فوراً عند ارتفاع المخاطر" },
+      ],
+    },
+    team: {
+      title: "خمسة مهندسين.",
+      subtitle: "مهمة واحدة.",
+      description: "طلاب هندسة، بنات مشاريع تطبيقية.",
+    },
+    stayTuned: {
+      title: "ابقوا على اطلاع.",
+      subtitle: "نحن للتو بدأنا.",
+      description: "نعمل بجد لإحياء تفويج. تابعوا رحلتنا بينما نطور حلول أمان أكثر ذكاءً للحجاج حول العالم.",
+    },
+    problemStats: {
+      pilgrims: "حجاج يتجمعون في مكة كل عام",
+      lagTime: "وقت التأخير في الكشف التقليدي",
+      density: "حد كثافة خطر الازدحام",
+      reactive: "أنظمة تفاعلية، غير تنبؤية",
+    },
+    howAI: {
+      title: "كيف يعمل الذكاء الاصطناعي",
+      subtitle: "ستة نماذج متخصصة،",
+      subtitle2: "نظام ذكي واحد.",
+      description: "كل نظام فرعي مصمم لغرض معين ومقاس بشكل مستقل. ينتقل من البكسل الخام إلى درجة الخطر في أقل من ثانية.",
+      cards: [
+        { t: "الرؤية الحاسوبية", d: "تستخرج الشبكات العصبية العميقة ميزات الحشود من إطارات الفيديو في الوقت الفعلي.", tag: "OpenCV · PyTorch" },
+        { t: "تقدير كثافة الحشود", d: "تتنبأ الشبكات بخرائط الكثافة لكل بكسل دون الحاجة للكشف عن الرؤوس.", tag: "CSRNet" },
+        { t: "التنبؤ بالشبكات التكرارية", d: "تتنبأ الشبكات التكرارية بالكثافة 5-15 دقيقة مقدماً.", tag: "PyTorch · LSTM" },
+        { t: "تصنيف المخاطر", d: "تقوم العتبات المتعلمة بتعيين التنبؤات إلى أربعة مستويات خطر لكل منطقة.", tag: "ML Classifier" },
+        { t: "التنبيهات في الوقت الفعلي", d: "يستقبل مركز العمليات تنبيهات الدفع والرسائل القصيرة ولوحة التحكم عند ارتفاع الخطر.", tag: "FastAPI · WebSocket" },
+        { t: "التعلم المستمر", d: "يعيد النظام التدريب من ملاحظات المشغلين ومقاطع الفيديو الجديدة.", tag: "MLOps" },
+      ],
+    },
+    riskLevels: {
+      title: "أربعة مستويات.",
+      subtitle: "بدون غموض.",
+      safe: "آمن",
+      watch: "مراقبة",
+      warning: "تحذير",
+      critical: "حرج",
+      density: "الكثافة",
+      confidence: "الثقة",
+      action: "الإجراء",
+      safeAction: "مراقبة مستمرة",
+      watchAction: "زيادة أخذ العينات من الكاميرات",
+      warningAction: "إعادة توجيه التدفق · إخطار الفرق الأرضية",
+      criticalAction: "استجابة فورية للتحكم في الحشود",
+    },
+    dashboard: {
+      title: "لوحة تحكم العمليات الحية",
+      subtitle: "غرفة تحكم",
+      subtitle2: "للمواقع المقدسة.",
+      online: "متصل",
+      alerts: "تنبيهات",
+      active: "نشط",
+      zoneStatus: "حالة المنطقة",
+      densityForecast: "تنبؤ الكثافة · Mataf",
+      rolling: "30 دقيقة متداولة · تنبؤ 15 دقيقة",
+      observed: "الملاحظ",
+      predicted: "التنبؤ",
+      now: "الآن",
+      critical: "حرج 6.0/m²",
+      liveCameras: "كاميرات مباشرة",
+    },
+    technology: {
+      title: "مبني باستخدام",
+      subtitle: "مكدس ذكاء اصطناعي حديث.",
+      description: "مكونات مفتوحة المصدر مجربة ومختبرة مكونة في خط استدلال جاهز للإنتاج سريع وشفوق وقابل للنشر.",
+    },
+    whyTafweej: {
+      title: "لماذا تفويج؟",
+      subtitle: "من الملاحظة إلى إنقاذ الأرواح.",
+      observe: "راقب",
+      observeDesc: "فيديو مستمر من كل منطقة.",
+      predict: "تنبأ",
+      predictDesc: "تنبأ بالكثافة 5-15 دقيقة مقدماً.",
+      alert: "حذر",
+      alertDesc: "يتم إخطار مركز العمليات قبل الوصول للحرج.",
+      intervene: "تدخل",
+      interveneDesc: "أعد توجيه التدفق، نشر الموارد.",
+      saveLives: "أنقذ الأرواح",
+      saveLivesDesc: "منع الازدحام قبل البدء.",
+    },
+    vision: {
+      today: "اليوم،",
+      predict: "نتنبأ بالحشود.",
+      tomorrow: "غداً،",
+      infrastructure: "بنية تحتية ذكاء اصطناعي كاملة",
+      protecting: "تحمي كل حاج.",
+      phase01: "المرحلة 01",
+      phase01Title: "الكثافة التنبؤية",
+      phase01Desc: "نشر CSRNet + LSTM عبر المناطق الأولية.",
+      phase02: "المرحلة 02",
+      phase02Title: "الاندماج متعدد الوسائط",
+      phase02Desc: "مستشعرات IoT، إشارات الهاتف المحمول والتصوير الحراري.",
+      phase03: "المرحلة 03",
+      phase03Title: "الاستجابة المستقلة",
+      phase03Desc: "اللافتحات المدعومة بالذكاء الاصطناعي، التوجيه، تخصيص الموارد.",
+      phase04: "المرحلة 04",
+      phase04Title: "النشر على مستوى الدولة",
+      phase04Desc: "بنية تحتية للسلامة على مستوى المملكة متوافقة مع رؤية 2030.",
+    },
+  },
+  en: {
+    nav: {
+      problem: "Problem",
+      solution: "Solution",
+      dashboard: "Dashboard",
+      tech: "Tech",
+      team: "Team",
+    },
+    hero: {
+      title: "AI-Powered",
+      subtitle: "Crowd Intelligence for Safer Hajj.",
+      description: "Predicting crowd congestion before it happens using Computer Vision and Deep Learning, protecting millions of pilgrims through intelligent early warning",
+      earlyWarning: "5–15 minutes",
+      viewArchitecture: "View Architecture",
+      exploreSolution: "Explore Solution",
+      pilgrimsYearly: "2–3M",
+      pilgrimsLabel: "Pilgrims yearly",
+      earlyWarningLabel: "Min. early warning",
+      monitoring: "24/7",
+      monitoringLabel: "AI monitoring",
+    },
+    problem: {
+      title: "Traditional systems react.",
+      subtitle: "By then, it's already too late.",
+      description: "Every year, millions of pilgrims converge on Makkah. Existing crowd monitoring only detects dangerous density after it becomes visible to human operators. This is often too late for meaningful intervention.",
+    },
+    solution: {
+      title: "A smart system that watches",
+      subtitle: "and predicts crowd risks.",
+      description: "We watch live video cameras, understand crowd movement, and warn authorities before dangerous situations happen.",
+      steps: [
+        { t: "Watch Cameras", d: "Live video from holy sites monitors crowd movement" },
+        { t: "Process Video", d: "System analyzes each frame to understand what's happening" },
+        { t: "Count People", d: "Estimates how many people are in each area" },
+        { t: "Create Maps", d: "Shows crowd density as easy-to-read heatmaps" },
+        { t: "Track Patterns", d: "Studies how crowds change over time in each zone" },
+        { t: "Predict Future", d: "Forecasts crowd levels 5–15 minutes ahead" },
+        { t: "Assess Risk", d: "Classifies danger levels: Safe, Watch, Warning, Critical" },
+        { t: "Send Alerts", d: "Notifies authorities immediately when risks rise" },
+      ],
+    },
+    team: {
+      title: "Five engineers.",
+      subtitle: "One mission.",
+      description: "Engineering students, builders of applied projects.",
+    },
+    stayTuned: {
+      title: "Stay tuned.",
+      subtitle: "We're just getting started.",
+      description: "We're working hard to bring Tafweej to life. Follow our journey as we develop smarter safety solutions for pilgrims around the world.",
+    },
+    problemStats: {
+      pilgrims: "Pilgrims gather in Makkah every year",
+      lagTime: "Traditional detection lag time",
+      density: "Density threshold for crush risk",
+      reactive: "Reactive systems, not predictive",
+    },
+    howAI: {
+      title: "How the AI Works",
+      subtitle: "Six specialized models,",
+      subtitle2: "one intelligent system.",
+      description: "Each subsystem is purpose-built and independently benchmarked. It goes from raw pixel to risk score in under a second.",
+      cards: [
+        { t: "Computer Vision", d: "Deep CNNs extract crowd features from video frames in real time.", tag: "OpenCV · PyTorch" },
+        { t: "Crowd Density Estimation", d: "CSRNet regresses per-pixel density maps without head detection.", tag: "CSRNet" },
+        { t: "LSTM Prediction", d: "Recurrent networks forecast density 5–15 minutes ahead of time.", tag: "PyTorch · LSTM" },
+        { t: "Risk Classification", d: "Learned thresholds map forecasts to four risk tiers per zone.", tag: "ML Classifier" },
+        { t: "Real-Time Alerts", d: "Ops center receives push, SMS and dashboard alerts as risk rises.", tag: "FastAPI · WebSocket" },
+        { t: "Continuous Learning", d: "The system retrains from operator feedback and new footage.", tag: "MLOps" },
+      ],
+    },
+    riskLevels: {
+      title: "Four levels.",
+      subtitle: "Zero ambiguity.",
+      safe: "Safe",
+      watch: "Watch",
+      warning: "Warning",
+      critical: "Critical",
+      density: "Density",
+      confidence: "Confidence",
+      action: "Action",
+      safeAction: "Continuous monitoring",
+      watchAction: "Increase camera sampling",
+      warningAction: "Reroute inflow · notify ground teams",
+      criticalAction: "Immediate crowd control response",
+    },
+    dashboard: {
+      title: "Live Operations Dashboard",
+      subtitle: "A control room",
+      subtitle2: "for the holy sites.",
+      online: "ONLINE",
+      alerts: "Alerts",
+      active: "ACTIVE",
+      zoneStatus: "Zone Status",
+      densityForecast: "Density Forecast · Mataf",
+      rolling: "Rolling 30 min · +15 min prediction",
+      observed: "Observed",
+      predicted: "Predicted",
+      now: "NOW",
+      critical: "CRITICAL 6.0/m²",
+      liveCameras: "Live Cameras",
+    },
+    technology: {
+      title: "Built with a modern",
+      subtitle: "AI stack.",
+      description: "Battle-tested open-source components composed into a production-ready inference pipeline that is fast, transparent, and deployable.",
+    },
+    whyTafweej: {
+      title: "Why Tafweej?",
+      subtitle: "From observation to saving lives.",
+      observe: "Observe",
+      observeDesc: "Continuous video from every zone.",
+      predict: "Predict",
+      predictDesc: "Forecast density 5–15 min ahead.",
+      alert: "Alert",
+      alertDesc: "Ops center notified before critical.",
+      intervene: "Intervene",
+      interveneDesc: "Reroute flow, deploy resources.",
+      saveLives: "Save Lives",
+      saveLivesDesc: "Prevent crushes before they start.",
+    },
+    vision: {
+      today: "Today,",
+      predict: "we predict crowds.",
+      tomorrow: "Tomorrow,",
+      infrastructure: "a complete AI infrastructure",
+      protecting: "protecting every pilgrim.",
+      phase01: "Phase 01",
+      phase01Title: "Predictive Density",
+      phase01Desc: "Deploy CSRNet + LSTM across primary zones.",
+      phase02: "Phase 02",
+      phase02Title: "Multi-Modal Fusion",
+      phase02Desc: "IoT sensors, mobile signals & thermal imagery.",
+      phase03: "Phase 03",
+      phase03Title: "Autonomous Response",
+      phase03Desc: "AI-driven signage, routing, resource allocation.",
+      phase04: "Phase 04",
+      phase04Title: "Nation-scale Deployment",
+      phase04Desc: "Kingdom-wide safety infrastructure aligned with Vision 2030.",
+    },
+  },
+};
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -67,7 +352,7 @@ function Counter({ to, suffix = "", duration = 1800 }: { to: number; suffix?: st
 }
 
 /* ---------- Nav ---------- */
-function Nav() {
+function Nav({ lang, setLang, t }: { lang: "ar" | "en"; setLang: (lang: "ar" | "en") => void; t: typeof translations.en }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -86,11 +371,11 @@ function Nav() {
         </a>
         <nav className="hidden items-center gap-8 md:flex">
           {[
-            ["Problem", "#problem"],
-            ["Solution", "#solution"],
-            ["Dashboard", "#dashboard"],
-            ["Tech", "#tech"],
-            ["Team", "#team"],
+            [t.nav.problem, "#problem"],
+            [t.nav.solution, "#solution"],
+            [t.nav.dashboard, "#dashboard"],
+            [t.nav.tech, "#tech"],
+            [t.nav.team, "#team"],
           ].map(([l, h]) => (
             <a key={h} href={h} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
               {l}
@@ -98,6 +383,15 @@ function Nav() {
           ))}
         </nav>
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => setLang(lang === "ar" ? "en" : "ar")}
+            className="flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:bg-white/5"
+          >
+            {lang === "ar" ? "EN" : "AR"}
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+          </button>
           <span className="hidden rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-widest text-muted-foreground sm:inline-block">
             MCIT · 2026
           </span>
@@ -132,27 +426,29 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 
 /* ============================================================ */
 function Landing() {
+  const [lang, setLang] = useState<"ar" | "en">("ar");
+  const t = translations[lang];
   return (
-    <div id="top" className="relative min-h-screen overflow-x-hidden">
-      <Nav />
-      <Hero />
-      <Problem />
-      <Solution />
-      <HowAI />
-      <RiskLevels />
-      <Dashboard />
-      <Tech />
-      <WhyTafweej />
-      <Team />
+    <div id="top" className="relative min-h-screen overflow-x-hidden" dir={lang === "ar" ? "rtl" : "ltr"}>
+      <Nav lang={lang} setLang={setLang} t={t} />
+      <Hero lang={lang} t={t} />
+      <Problem lang={lang} t={t} />
+      <Solution lang={lang} t={t} />
+      <HowAI lang={lang} t={t} />
+      <RiskLevels lang={lang} t={t} />
+      <Dashboard lang={lang} t={t} />
+      <Tech lang={lang} t={t} />
+      <WhyTafweej lang={lang} t={t} />
+      <Team lang={lang} t={t} />
       <Vision />
-      <StayTuned />
+      <StayTuned lang={lang} t={t} />
       <Footer />
     </div>
   );
 }
 
 /* ---------------- HERO ---------------- */
-function Hero() {
+function Hero({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden pt-32">
       {/* Background image */}
@@ -225,16 +521,13 @@ function Hero() {
           </Reveal>
           <Reveal delay={120}>
             <h1 className="font-display text-[clamp(2.5rem,6.2vw,5.5rem)] font-bold leading-[1.02] tracking-tight">
-              AI-Powered<br />
-              <span className="text-gradient-emerald">Crowd Intelligence</span><br />
-              for Safer Hajj.
+              {t.hero.title}<br />
+              <span className="text-gradient-emerald">{t.hero.subtitle}</span>
             </h1>
           </Reveal>
           <Reveal delay={240}>
             <p className="mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
-              Predicting crowd congestion <span className="text-foreground">before it happens</span> using
-              Computer Vision and Deep Learning, protecting millions of pilgrims through intelligent
-              early warning, <span className="text-[color:var(--gold)]">5–15 minutes</span> in advance.
+              {t.hero.description} <span className="text-[color:var(--gold)]">{t.hero.earlyWarning}</span>
             </p>
           </Reveal>
           <Reveal delay={360}>
@@ -243,13 +536,13 @@ function Hero() {
                 href="#solution"
                 className="glass inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-white/[0.06]"
               >
-                View Architecture
+                {t.hero.viewArchitecture}
               </a>
               <a
                 href="#dashboard"
                 className="glass inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-white/[0.06]"
               >
-                Explore Solution
+                {t.hero.exploreSolution}
               </a>
             </div>
           </Reveal>
@@ -257,9 +550,9 @@ function Hero() {
           <Reveal delay={520}>
             <div className="mt-16 grid max-w-2xl grid-cols-3 gap-6 border-t border-white/5 pt-8">
               {[
-                ["2–3M", "Pilgrims yearly"],
-                ["5–15", "Min. early warning"],
-                ["24/7", "AI monitoring"],
+                [t.hero.pilgrimsYearly, t.hero.pilgrimsLabel],
+                [t.hero.earlyWarning, t.hero.earlyWarningLabel],
+                [t.hero.monitoring, t.hero.monitoringLabel],
               ].map(([v, l]) => (
                 <div key={l}>
                   <div className="font-display text-2xl font-bold text-gradient-gold md:text-3xl">{v}</div>
@@ -324,30 +617,27 @@ function MiniChart() {
 }
 
 /* ---------------- PROBLEM ---------------- */
-function Problem() {
+function Problem({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   const stats = [
-    { v: 3, s: "M+", l: "Pilgrims gather in Makkah every year" },
-    { v: 30, s: "s", l: "Traditional detection lag time" },
-    { v: 6, s: "+/m²", l: "Density threshold for crush risk" },
-    { v: 100, s: "%", l: "Reactive systems, not predictive" },
+    { v: 3, s: "M+", l: t.problemStats.pilgrims },
+    { v: 30, s: "s", l: t.problemStats.lagTime },
+    { v: 6, s: "+/m²", l: t.problemStats.density },
+    { v: 100, s: "%", l: t.problemStats.reactive },
   ];
   return (
     <section id="problem" className="relative py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
           <div>
-            <Reveal><Eyebrow>The Problem</Eyebrow></Reveal>
+            <Reveal><Eyebrow>{lang === "ar" ? "المشكلة" : "The Problem"}</Eyebrow></Reveal>
             <Reveal delay={100}>
               <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-                Traditional systems <span className="text-gradient-gold">react</span>.<br />
-                By then, it's already too late.
+                {t.problem.title} <span className="text-gradient-gold">{t.problem.subtitle}</span>
               </h2>
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-6 max-w-lg text-lg text-muted-foreground">
-                Every year, millions of pilgrims converge on Makkah. Existing crowd monitoring only
-                detects dangerous density <em>after</em> it becomes visible to human operators.
-                This is often too late for meaningful intervention.
+                {t.problem.description}
               </p>
             </Reveal>
 
@@ -431,33 +721,23 @@ function Problem() {
 }
 
 /* ---------------- SOLUTION ---------------- */
-function Solution() {
-  const steps = [
-    { t: "Watch Cameras", d: "Live video from holy sites monitors crowd movement", icon: "camera" },
-    { t: "Process Video", d: "System analyzes each frame to understand what's happening", icon: "frame" },
-    { t: "Count People", d: "Estimates how many people are in each area", icon: "cnn" },
-    { t: "Create Maps", d: "Shows crowd density as easy-to-read heatmaps", icon: "map" },
-    { t: "Track Patterns", d: "Studies how crowds change over time in each zone", icon: "series" },
-    { t: "Predict Future", d: "Forecasts crowd levels 5–15 minutes ahead", icon: "lstm" },
-    { t: "Assess Risk", d: "Classifies danger levels: Safe, Watch, Warning, Critical", icon: "risk" },
-    { t: "Send Alerts", d: "Notifies authorities immediately when risks rise", icon: "bell" },
-  ];
+function Solution({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
+  const steps = t.solution.steps;
   return (
     <section id="solution" className="relative py-32">
       <div className="absolute inset-0 islamic-pattern opacity-40" />
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <Reveal><Eyebrow>Our Solution</Eyebrow></Reveal>
+          <Reveal><Eyebrow>{lang === "ar" ? "حلنا" : "Our Solution"}</Eyebrow></Reveal>
           <Reveal delay={100}>
             <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-              A smart system that watches<br />
-              and <span className="text-gradient-emerald">predicts</span> crowd risks.
+              {t.solution.title}<br />
+              and <span className="text-gradient-emerald">{t.solution.subtitle}</span>
             </h2>
           </Reveal>
           <Reveal delay={200}>
             <p className="mt-6 text-lg text-muted-foreground">
-              We watch live video cameras, understand crowd movement, and warn authorities
-              before dangerous situations happen.
+              {t.solution.description}
             </p>
           </Reveal>
         </div>
@@ -509,29 +789,21 @@ function StepIcon({ name }: { name: string }) {
 }
 
 /* ---------------- HOW AI WORKS ---------------- */
-function HowAI() {
-  const cards = [
-    { t: "Computer Vision", d: "Deep CNNs extract crowd features from video frames in real time.", tag: "OpenCV · PyTorch" },
-    { t: "Crowd Density Estimation", d: "CSRNet regresses per-pixel density maps without head detection.", tag: "CSRNet" },
-    { t: "LSTM Prediction", d: "Recurrent networks forecast density 5–15 minutes ahead of time.", tag: "PyTorch · LSTM" },
-    { t: "Risk Classification", d: "Learned thresholds map forecasts to four risk tiers per zone.", tag: "ML Classifier" },
-    { t: "Real-Time Alerts", d: "Ops center receives push, SMS and dashboard alerts as risk rises.", tag: "FastAPI · WebSocket" },
-    { t: "Continuous Learning", d: "The system retrains from operator feedback and new footage.", tag: "MLOps" },
-  ];
+function HowAI({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
+  const cards = t.howAI.cards;
   return (
     <section className="relative py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-end gap-8 lg:grid-cols-2">
           <Reveal>
-            <Eyebrow>How the AI Works</Eyebrow>
+            <Eyebrow>{t.howAI.title}</Eyebrow>
             <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-              Six specialized models,<br /><span className="text-gradient-emerald">one intelligent system.</span>
+              {t.howAI.subtitle}<br /><span className="text-gradient-emerald">{t.howAI.subtitle2}</span>
             </h2>
           </Reveal>
           <Reveal delay={150}>
             <p className="max-w-md text-muted-foreground">
-              Each subsystem is purpose-built and independently benchmarked. It goes from raw pixel to
-              risk score in under a second.
+              {t.howAI.description}
             </p>
           </Reveal>
         </div>
@@ -560,21 +832,21 @@ function HowAI() {
 }
 
 /* ---------------- RISK LEVELS ---------------- */
-function RiskLevels() {
+function RiskLevels({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   const levels = [
-    { emoji: "🟢", label: "Safe", density: "< 3.0/m²", conf: "97%", act: "Continuous monitoring", tone: "emerald", color: "var(--emerald-glow)" },
-    { emoji: "🟡", label: "Watch", density: "3.0 – 4.5/m²", conf: "94%", act: "Increase camera sampling", tone: "yellow", color: "oklch(0.85 0.16 90)" },
-    { emoji: "🟠", label: "Warning", density: "4.5 – 6.0/m²", conf: "91%", act: "Reroute inflow · notify ground teams", tone: "orange", color: "oklch(0.72 0.19 55)" },
-    { emoji: "🔴", label: "Critical", density: "> 6.0/m²", conf: "89%", act: "Immediate crowd control response", tone: "red", color: "oklch(0.62 0.22 25)" },
+    { emoji: "🟢", label: t.riskLevels.safe, density: "< 3.0/m²", conf: "97%", act: t.riskLevels.safeAction, tone: "emerald", color: "var(--emerald-glow)" },
+    { emoji: "🟡", label: t.riskLevels.watch, density: "3.0 – 4.5/m²", conf: "94%", act: t.riskLevels.watchAction, tone: "yellow", color: "oklch(0.85 0.16 90)" },
+    { emoji: "🟠", label: t.riskLevels.warning, density: "4.5 – 6.0/m²", conf: "91%", act: t.riskLevels.warningAction, tone: "orange", color: "oklch(0.72 0.19 55)" },
+    { emoji: "🔴", label: t.riskLevels.critical, density: "> 6.0/m²", conf: "89%", act: t.riskLevels.criticalAction, tone: "red", color: "oklch(0.62 0.22 25)" },
   ];
   return (
     <section className="relative py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <Reveal><Eyebrow>Risk Levels</Eyebrow></Reveal>
+          <Reveal><Eyebrow>{lang === "ar" ? "مستويات الخطر" : "Risk Levels"}</Eyebrow></Reveal>
           <Reveal delay={100}>
             <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-              Four levels. <span className="text-gradient-gold">Zero ambiguity.</span>
+              {t.riskLevels.title} <span className="text-gradient-gold">{t.riskLevels.subtitle}</span>
             </h2>
           </Reveal>
         </div>
@@ -596,9 +868,9 @@ function RiskLevels() {
                 </div>
                 <div className="mt-4 font-display text-2xl font-bold">{r.label}</div>
                 <div className="mt-4 space-y-2 border-t border-white/5 pt-4 text-xs">
-                  <Row k="Density" v={r.density} />
-                  <Row k="Confidence" v={r.conf} />
-                  <Row k="Action" v={r.act} />
+                  <Row k={t.riskLevels.density} v={r.density} />
+                  <Row k={t.riskLevels.confidence} v={r.conf} />
+                  <Row k={t.riskLevels.action} v={r.act} />
                 </div>
               </div>
             </Reveal>
@@ -618,15 +890,15 @@ function Row({ k, v }: { k: string; v: string }) {
 }
 
 /* ---------------- DASHBOARD MOCKUP ---------------- */
-function Dashboard() {
+function Dashboard({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   return (
     <section id="dashboard" className="relative py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <Reveal><Eyebrow>Live Operations Dashboard</Eyebrow></Reveal>
+          <Reveal><Eyebrow>{t.dashboard.title}</Eyebrow></Reveal>
           <Reveal delay={100}>
             <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-              A control room for<br /><span className="text-gradient-emerald">the holy sites.</span>
+              {t.dashboard.subtitle}<br /><span className="text-gradient-emerald">{t.dashboard.subtitle2}</span>
             </h2>
           </Reveal>
         </div>
@@ -847,7 +1119,7 @@ function BigChart() {
 }
 
 /* ---------------- TECH ---------------- */
-function Tech() {
+function Tech({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   const techs = [
     "Python", "PyTorch", "CSRNet", "OpenCV",
     "LSTM", "CNN", "FastAPI", "React",
@@ -858,16 +1130,15 @@ function Tech() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Reveal><Eyebrow>Technology</Eyebrow></Reveal>
+            <Reveal><Eyebrow>{lang === "ar" ? "التقنية" : "Technology"}</Eyebrow></Reveal>
             <Reveal delay={100}>
               <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-                Built with a modern <span className="text-gradient-emerald">AI stack.</span>
+                {t.technology.title} <span className="text-gradient-emerald">{t.technology.subtitle}</span>
               </h2>
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-6 text-muted-foreground">
-                Battle-tested open-source components composed into a production-ready inference
-                pipeline that is fast, transparent, and deployable.
+                {t.technology.description}
               </p>
             </Reveal>
           </div>
@@ -892,13 +1163,13 @@ function Tech() {
 }
 
 /* ---------------- WHY TAFWEEJ ---------------- */
-function WhyTafweej() {
+function WhyTafweej({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   const items = [
-    { t: "Observe", d: "Continuous video from every zone.", icon: "eye" },
-    { t: "Predict", d: "Forecast density 5–15 min ahead.", icon: "brain" },
-    { t: "Alert", d: "Ops center notified before critical.", icon: "alert" },
-    { t: "Intervene", d: "Reroute flow, deploy resources.", icon: "flow" },
-    { t: "Save Lives", d: "Prevent crushes before they start.", icon: "heart" },
+    { t: t.whyTafweej.observe, d: t.whyTafweej.observeDesc, icon: "eye" },
+    { t: t.whyTafweej.predict, d: t.whyTafweej.predictDesc, icon: "brain" },
+    { t: t.whyTafweej.alert, d: t.whyTafweej.alertDesc, icon: "alert" },
+    { t: t.whyTafweej.intervene, d: t.whyTafweej.interveneDesc, icon: "flow" },
+    { t: t.whyTafweej.saveLives, d: t.whyTafweej.saveLivesDesc, icon: "heart" },
   ];
   const icons: Record<string, React.ReactNode> = {
     eye: <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></>,
@@ -912,10 +1183,10 @@ function WhyTafweej() {
       <div className="absolute inset-0 islamic-pattern opacity-30" />
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <Reveal><Eyebrow>Why Tafweej?</Eyebrow></Reveal>
+          <Reveal><Eyebrow>{t.whyTafweej.title}</Eyebrow></Reveal>
           <Reveal delay={100}>
             <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-              From observation to <span className="text-gradient-gold">saving lives.</span>
+              {t.whyTafweej.subtitle} <span className="text-gradient-gold">{t.whyTafweej.saveLives}.</span>
             </h2>
           </Reveal>
         </div>
@@ -950,7 +1221,7 @@ function WhyTafweej() {
 }
 
 /* ---------------- TEAM ---------------- */
-function Team() {
+function Team({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   const team = [
     { n: "Zamiche Nour", r: "AI Student", github: "https://github.com/Nourzm", linkedin: "https://www.linkedin.com/in/nourzamiche/" },
     { n: "Sayah Maroua", r: "AI Student", github: "https://github.com/Maroua0618", linkedin: "https://www.linkedin.com/in/maroua-sayah-997709284/" },
@@ -962,15 +1233,15 @@ function Team() {
     <section id="team" className="relative py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <Reveal><Eyebrow>The Team</Eyebrow></Reveal>
+          <Reveal><Eyebrow>{lang === "ar" ? "الفريق" : "The Team"}</Eyebrow></Reveal>
           <Reveal delay={100}>
             <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-              Five engineers.<br/><span className="text-gradient-emerald">One mission.</span>
+              {t.team.title}<br/><span className="text-gradient-emerald">{t.team.subtitle}</span>
             </h2>
           </Reveal>
           <Reveal delay={200}>
             <p className="mt-6 text-muted-foreground">
-              Engineering students · builders of applied projects.
+              {t.team.description}
             </p>
           </Reveal>
         </div>
@@ -1056,21 +1327,20 @@ function Vision() {
 }
 
 /* ---------------- STAY TUNED ---------------- */
-function StayTuned() {
+function StayTuned({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   return (
     <section className="relative py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <Reveal><Eyebrow>Coming Soon</Eyebrow></Reveal>
+          <Reveal><Eyebrow>{lang === "ar" ? "قريباً" : "Coming Soon"}</Eyebrow></Reveal>
           <Reveal delay={100}>
             <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
-              Stay tuned.<br/><span className="text-gradient-emerald">We're just getting started.</span>
+              {t.stayTuned.title}<br/><span className="text-gradient-emerald">{t.stayTuned.subtitle}</span>
             </h2>
           </Reveal>
           <Reveal delay={200}>
             <p className="mt-6 text-lg text-muted-foreground">
-              We're working hard to bring Tafweej to life. Follow our journey as we develop
-              smarter safety solutions for pilgrims around the world.
+              {t.stayTuned.description}
             </p>
           </Reveal>
         </div>
