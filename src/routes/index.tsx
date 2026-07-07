@@ -50,16 +50,16 @@ const translations = {
       eyebrow: "عرض حي",
       title: "شاهد تفويج يفكّر،",
       title2: "قبل دقائق.",
-      description: "محاكاة مفاهيمية للطواف حول الكعبة. تتصاعد الكثافة في قطاع واحد — يتنبأ تفويج بها ويوصي بإعادة التوجيه قبل أن يصبح القطاع حرجاً.",
-      label: "الطواف — محاكاة مفاهيمية",
+      description: "محاكاة مفاهيمية للطواف حول الكعبة. تتصاعد الكثافة في قطاع واحد، حيث يتنبأ تفويج بها ويوصي بإعادة التوجيه قبل أن يصبح القطاع حرجاً.",
+      label: "الطواف: محاكاة مفاهيمية",
       live: "مباشر",
-      nominal: "جميع المناطق طبيعية — مراقبة ٢٤ قطاعاً",
-      watch: "ارتفاع الكثافة — القطاع ١٤ تحت المراقبة",
-      forecast: "⚠ تنبؤ تفويج — القطاع ١٤ حرج خلال ~{s} ث · يُنصح بإعادة التوجيه عبر البوابة ب",
-      critical: "القطاع ١٤ حرج — بدون التنبؤ، هنا يكتشف المشغّلون الخطر",
-      intervene: "التدخل نشط — أُعيد توجيه التدفق عبر البوابة ب",
-      stable: "استقرت المنطقة — وقت الاستباق أحدث الفرق",
-      note: "محاكاة مفاهيمية — ليست بيانات ميدانية",
+      nominal: "جميع المناطق طبيعية، مراقبة ٢٤ قطاعاً",
+      watch: "ارتفاع الكثافة، القطاع ١٤ تحت المراقبة",
+      forecast: "⚠ تنبؤ تفويج: القطاع ١٤ حرج خلال ~{s} ث، يُنصح بإعادة التوجيه عبر البوابة ب",
+      critical: "القطاع ١٤ حرج: بدون التنبؤ، هنا يكتشف المشغّلون الخطر",
+      intervene: "التدخل نشط، أُعيد توجيه التدفق عبر البوابة ب",
+      stable: "استقرت المنطقة، وقت الاستباق أحدث الفرق",
+      note: "محاكاة مفاهيمية، ليست بيانات ميدانية",
     },
     team: {
       title: "خمسة مهندسين.",
@@ -228,16 +228,16 @@ const translations = {
       eyebrow: "Live Demo",
       title: "Watch Tafweej think,",
       title2: "minutes ahead.",
-      description: "A concept simulation of tawaf around the Kaaba. Density builds in one sector — Tafweej forecasts it and recommends a reroute before the zone turns critical.",
-      label: "Tawaf — concept simulation",
+      description: "A concept simulation of tawaf around the Kaaba. Density builds in one sector, where Tafweej forecasts it and recommends a reroute before the zone turns critical.",
+      label: "Tawaf: concept simulation",
       live: "Live",
-      nominal: "ALL ZONES NOMINAL — MONITORING 24 SECTORS",
-      watch: "DENSITY RISING — SECTOR 14 UNDER WATCH",
-      forecast: "⚠ TAFWEEJ FORECAST — SECTOR 14 CRITICAL IN ~{s}s · RECOMMEND REROUTE VIA GATE B",
-      critical: "SECTOR 14 CRITICAL — WITHOUT FORECAST, THIS IS WHERE OPERATORS FIND OUT",
-      intervene: "INTERVENTION ACTIVE — FLOW REROUTED VIA GATE B",
-      stable: "ZONE STABILIZED — LEAD TIME MADE THE DIFFERENCE",
-      note: "Concept simulation — not field data.",
+      nominal: "ALL ZONES NOMINAL, MONITORING 24 SECTORS",
+      watch: "DENSITY RISING, SECTOR 14 UNDER WATCH",
+      forecast: "⚠ TAFWEEJ FORECAST: SECTOR 14 CRITICAL IN ~{s}s, RECOMMEND REROUTE VIA GATE B",
+      critical: "SECTOR 14 CRITICAL: WITHOUT FORECAST, THIS IS WHERE OPERATORS FIND OUT",
+      intervene: "INTERVENTION ACTIVE, FLOW REROUTED VIA GATE B",
+      stable: "ZONE STABILIZED, LEAD TIME MADE THE DIFFERENCE",
+      note: "Concept simulation, not field data.",
     },
     team: {
       title: "Five engineers.",
@@ -1009,7 +1009,7 @@ function LiveDemo({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en })
         d.moveTo(x + cr, y); d.arc(x, y, cr, 0, Math.PI * 2);
       }
       // crowd tones tuned to READ against the light marble (heads/shadows), like an aerial photo
-      ctx!.fillStyle = "rgba(96,104,118,.92)"; ctx!.fill(dots[0]);   // slate — most pilgrims
+      ctx!.fillStyle = "rgba(96,104,118,.92)"; ctx!.fill(dots[0]);   // slate: most pilgrims
       ctx!.fillStyle = "rgba(150,124,96,.92)"; ctx!.fill(dots[1]);   // warm tan
       ctx!.fillStyle = "rgba(52,50,54,.94)"; ctx!.fill(dots[2]);     // dark heads
       ctx!.fillStyle = "rgba(238,235,228,.92)"; ctx!.fill(dots[3]);  // occasional white robe fleck
