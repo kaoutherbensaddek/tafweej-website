@@ -121,6 +121,17 @@ const translations = {
       now: "الآن",
       critical: "حرج 6.0/m²",
       liveCameras: "كاميرات مباشرة",
+      location: "مكة · UTC+3",
+      repoPath: "tafweej.ops / dashboard",
+      liveHeatmap: "خريطة حرارية مباشرة · Mataf",
+      low: "منخفض",
+      high: "عالي",
+      normal: "عادي",
+      congested: "مزدحم",
+      danger: "خطر",
+      crowdTimeline: "الجدول الزمني لكثافة الحشود · Mataf",
+      reactionGap: "فجوة التفاعل",
+      reactionGapDesc: "المشغلون البشري يحتاجون دقائق؛ اندفاعات الحشود تحدث في ثوانٍ.",
     },
     technology: {
       title: "مبني باستخدام",
@@ -159,6 +170,17 @@ const translations = {
       phase04: "المرحلة 04",
       phase04Title: "النشر على مستوى الدولة",
       phase04Desc: "بنية تحتية للسلامة على مستوى المملكة متوافقة مع رؤية 2030.",
+      eyebrow: "الرؤية",
+    },
+    footer: {
+      description: "التنبؤ بمخاطر الحشود قبل أن تصبح حالات طارئة.",
+      program: "البرنامج",
+      programName: "تحدي تقنية الحج والعمرة بوزارة الاتصالات",
+      location: "المملكة العربية السعودية · 2026",
+      vision: "متوافق مع رؤية السعودية 2030",
+      team: "الفريق",
+      teamMembers: "طلاب هندسة",
+      copyright: "© 2026 تفويج.",
     },
   },
   en: {
@@ -277,6 +299,17 @@ const translations = {
       now: "NOW",
       critical: "CRITICAL 6.0/m²",
       liveCameras: "Live Cameras",
+      location: "Makkah · UTC+3",
+      repoPath: "tafweej.ops / dashboard",
+      liveHeatmap: "LIVE HEATMAP · MATAF",
+      low: "low",
+      high: "high",
+      normal: "Normal",
+      congested: "Congested",
+      danger: "Danger",
+      crowdTimeline: "Crowd density timeline · Mataf",
+      reactionGap: "Reaction Gap",
+      reactionGapDesc: "Human operators need minutes; crowd surges happen in seconds.",
     },
     technology: {
       title: "Built with a modern",
@@ -315,6 +348,17 @@ const translations = {
       phase04: "Phase 04",
       phase04Title: "Nation-scale Deployment",
       phase04Desc: "Kingdom-wide safety infrastructure aligned with Vision 2030.",
+      eyebrow: "Vision",
+    },
+    footer: {
+      description: "Predicting crowd risks before they become emergencies.",
+      program: "Program",
+      programName: "MCIT Hajj & Umrah Tech Challenge",
+      location: "Kingdom of Saudi Arabia · 2026",
+      vision: "Aligned with Saudi Vision 2030",
+      team: "Team",
+      teamMembers: "Engineering Students",
+      copyright: "© 2026 Tafweej.",
     },
   },
 };
@@ -471,9 +515,9 @@ function Landing() {
       <Tech lang={lang} t={t} />
       <WhyTafweej lang={lang} t={t} />
       <Team lang={lang} t={t} />
-      <Vision />
+      <Vision lang={lang} t={t} />
       <StayTuned lang={lang} t={t} />
-      <Footer />
+      <Footer lang={lang} t={t} />
     </div>
   );
 }
@@ -701,14 +745,14 @@ function Problem({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) 
                 <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background/90" />
                 <div className="relative">
                   <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                    Crowd density timeline · Mataf
+                    {t.dashboard.crowdTimeline}
                   </div>
                   <div className="mt-6 space-y-4">
                     {[
-                      { label: "Normal", val: "2.1/m²", pct: 22, color: "var(--emerald-glow)" },
-                      { label: "Congested", val: "4.6/m²", pct: 48, color: "oklch(0.82 0.16 90)" },
-                      { label: "Danger", val: "6.3/m²", pct: 68, color: "oklch(0.72 0.19 55)" },
-                      { label: "Critical", val: "8.1/m²", pct: 92, color: "oklch(0.62 0.22 25)" },
+                      { label: t.dashboard.normal, val: "2.1/m²", pct: 22, color: "var(--emerald-glow)" },
+                      { label: t.dashboard.congested, val: "4.6/m²", pct: 48, color: "oklch(0.82 0.16 90)" },
+                      { label: t.dashboard.danger, val: "6.3/m²", pct: 68, color: "oklch(0.72 0.19 55)" },
+                      { label: t.riskLevels.critical, val: "8.1/m²", pct: 92, color: "oklch(0.62 0.22 25)" },
                     ].map((r) => (
                       <div key={r.label}>
                         <div className="flex items-baseline justify-between text-xs">
@@ -735,9 +779,9 @@ function Problem({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) 
                       </svg>
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-red-400">Reaction Gap</div>
+                      <div className="text-sm font-semibold text-red-400">{t.dashboard.reactionGap}</div>
                       <div className="text-xs text-muted-foreground">
-                        Human operators need minutes; crowd surges happen in seconds.
+                        {t.dashboard.reactionGapDesc}
                       </div>
                     </div>
                   </div>
@@ -783,8 +827,7 @@ function Solution({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en })
                 )}
                 <div className="glass relative h-full overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 hover:border-[color:var(--emerald-glow)]/30">
                   <div className="mb-4 flex items-center justify-between">
-                    <StepIcon name={s.icon} />
-                    <span className="font-mono text-[10px] text-muted-foreground">0{i + 1}</span>
+                    <StepIcon name={s.icon} number={i + 1} />
                   </div>
                   <div className="font-display text-lg font-semibold">{s.t}</div>
                   <div className="mt-2 text-sm text-muted-foreground">{s.d}</div>
@@ -799,7 +842,7 @@ function Solution({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en })
   );
 }
 
-function StepIcon({ name }: { name: string }) {
+function StepIcon({ name, number }: { name: string; number: number }) {
   const paths: Record<string, React.ReactNode> = {
     camera: <><path d="M4 8h3l2-2h6l2 2h3v10H4z"/><circle cx="12" cy="13" r="3"/></>,
     frame: <><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 9h16M4 15h16M9 4v16M15 4v16"/></>,
@@ -811,10 +854,11 @@ function StepIcon({ name }: { name: string }) {
     bell: <><path d="M6 8a6 6 0 1 1 12 0c0 7 3 7 3 9H3c0-2 3-2 3-9zM10 20a2 2 0 0 0 4 0"/></>,
   };
   return (
-    <div className="grid h-11 w-11 place-items-center rounded-xl bg-[var(--gradient-emerald)]/10 ring-1 ring-[color:var(--emerald-glow)]/20">
+    <div className="relative grid h-11 w-11 place-items-center rounded-xl bg-[var(--gradient-emerald)]/10 ring-1 ring-[color:var(--emerald-glow)]/20">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-[color:var(--emerald-glow)]">
         {paths[name]}
       </svg>
+      <span className="absolute font-display text-lg font-bold text-[color:var(--emerald-glow)]">{number}</span>
     </div>
   );
 }
@@ -1147,12 +1191,12 @@ function Dashboard({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }
                     <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/60" />
                     <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/60" />
                   </div>
-                  <div className="font-mono text-[11px] text-muted-foreground">tafweej.ops / dashboard</div>
+                  <div className="font-mono text-[11px] text-muted-foreground">{t.dashboard.repoPath}</div>
                 </div>
                 <div className="flex items-center gap-4 text-[10px] uppercase tracking-widest text-muted-foreground">
-                  <span className="hidden sm:inline">Makkah · UTC+3</span>
+                  <span className="hidden sm:inline">{t.dashboard.location}</span>
                   <span className="flex items-center gap-1.5 text-[color:var(--emerald-glow)]">
-                    <span className="h-1.5 w-1.5 animate-glow-pulse rounded-full bg-current" /> ONLINE
+                    <span className="h-1.5 w-1.5 animate-glow-pulse rounded-full bg-current" /> {t.dashboard.online}
                   </span>
                 </div>
               </div>
@@ -1160,14 +1204,14 @@ function Dashboard({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }
               <div className="mt-4 grid gap-4 lg:grid-cols-12">
                 {/* Heatmap */}
                 <div className="lg:col-span-8">
-                  <DashboardHeatmap />
+                  <DashboardHeatmap t={t} />
                 </div>
                 {/* Alerts */}
                 <div className="space-y-3 lg:col-span-4">
                   <div className="rounded-xl border border-white/5 bg-white/[0.02] p-4">
                     <div className="mb-3 flex items-center justify-between">
-                      <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Alerts</span>
-                      <span className="rounded-full bg-red-500/20 px-2 py-0.5 text-[10px] font-semibold text-red-400">3 ACTIVE</span>
+                      <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.alerts}</span>
+                      <span className="rounded-full bg-red-500/20 px-2 py-0.5 text-[10px] font-semibold text-red-400">3 {t.dashboard.active}</span>
                     </div>
                     <div className="space-y-2">
                       {[
@@ -1187,7 +1231,7 @@ function Dashboard({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }
                     </div>
                   </div>
                   <div className="rounded-xl border border-white/5 bg-white/[0.02] p-4">
-                    <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Zone Status</span>
+                    <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.zoneStatus}</span>
                     <div className="mt-3 space-y-2 text-xs">
                       {[
                         ["Mataf", "critical"],
@@ -1215,20 +1259,20 @@ function Dashboard({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }
                 <div className="rounded-xl border border-white/5 bg-white/[0.02] p-4 lg:col-span-8">
                   <div className="mb-3 flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Density Forecast · Mataf</div>
-                      <div className="mt-0.5 font-mono text-[10px] text-muted-foreground">Rolling 30 min · +15 min prediction</div>
+                      <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.densityForecast}</div>
+                      <div className="mt-0.5 font-mono text-[10px] text-muted-foreground">{t.dashboard.rolling}</div>
                     </div>
                     <div className="flex gap-2 text-[10px]">
-                      <span className="flex items-center gap-1.5 text-muted-foreground"><span className="h-2 w-2 rounded-full bg-[color:var(--emerald-glow)]"/>Observed</span>
-                      <span className="flex items-center gap-1.5 text-muted-foreground"><span className="h-2 w-2 rounded-full bg-[color:var(--gold)]"/>Predicted</span>
+                      <span className="flex items-center gap-1.5 text-muted-foreground"><span className="h-2 w-2 rounded-full bg-[color:var(--emerald-glow)]"/>{t.dashboard.observed}</span>
+                      <span className="flex items-center gap-1.5 text-muted-foreground"><span className="h-2 w-2 rounded-full bg-[color:var(--gold)]"/>{t.dashboard.predicted}</span>
                     </div>
                   </div>
-                  <BigChart />
+                  <BigChart t={t} />
                 </div>
 
                 {/* Camera thumbs */}
                 <div className="rounded-xl border border-white/5 bg-white/[0.02] p-4 lg:col-span-4">
-                  <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Live Cameras</div>
+                  <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.dashboard.liveCameras}</div>
                   <div className="grid grid-cols-2 gap-2">
                     {["CAM 01", "CAM 07", "CAM 12", "CAM 18"].map((c, i) => (
                       <div key={c} className="relative aspect-video overflow-hidden rounded-md bg-black/40 ring-1 ring-white/5">
@@ -1251,7 +1295,7 @@ function Dashboard({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }
   );
 }
 
-function DashboardHeatmap() {
+function DashboardHeatmap({ t }: { t: typeof translations.en }) {
   const cells = 16 * 10;
   return (
     <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/5 bg-black/40">
@@ -1299,18 +1343,18 @@ function DashboardHeatmap() {
         </div>
       ))}
       <div className="absolute left-3 top-3 rounded-md bg-black/40 px-2 py-1 font-mono text-[10px] text-white/80 backdrop-blur">
-        LIVE HEATMAP · MATAF
+        {t.dashboard.liveHeatmap}
       </div>
       <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-md bg-black/40 px-2 py-1 text-[10px] backdrop-blur">
-        <span className="text-muted-foreground">low</span>
+        <span className="text-muted-foreground">{t.dashboard.low}</span>
         <span className="h-2 w-24 rounded-full" style={{ background: "linear-gradient(90deg, oklch(0.72 0.19 155), oklch(0.82 0.16 90), oklch(0.72 0.19 55), oklch(0.62 0.22 25))" }} />
-        <span className="text-muted-foreground">high</span>
+        <span className="text-muted-foreground">{t.dashboard.high}</span>
       </div>
     </div>
   );
 }
 
-function BigChart() {
+function BigChart({ t }: { t: typeof translations.en }) {
   const observed = [22, 28, 24, 30, 34, 38, 42, 46, 44, 50, 55, 60, 58, 64, 68];
   const predicted = [68, 72, 78, 84, 88, 92];
   const all = [...observed, ...predicted];
@@ -1337,7 +1381,7 @@ function BigChart() {
         <line key={y} x1="0" y1={h * y} x2={w} y2={h * y} stroke="oklch(1 0 0 / 0.05)" strokeDasharray="2 4"/>
       ))}
       <line x1={splitX} y1="0" x2={splitX} y2={h} stroke="oklch(0.78 0.13 88 / 0.4)" strokeDasharray="3 3"/>
-      <text x={splitX + 4} y={12} fill="oklch(0.78 0.13 88)" fontSize="9" fontFamily="monospace">NOW</text>
+      <text x={splitX + 4} y={12} fill="oklch(0.78 0.13 88)" fontSize="9" fontFamily="monospace">{t.dashboard.now}</text>
 
       <path d={`${obsPath} L ${splitX} ${h} L 0 ${h} Z`} fill="url(#obs-g)"/>
       <path d={obsPath} stroke="oklch(0.72 0.19 155)" strokeWidth="1.8" fill="none"/>
@@ -1346,7 +1390,7 @@ function BigChart() {
       <path d={predPath} stroke="oklch(0.78 0.13 88)" strokeWidth="1.8" fill="none" strokeDasharray="4 3"/>
 
       <line x1="0" y1={h * 0.32} x2={w} y2={h * 0.32} stroke="oklch(0.62 0.22 25 / 0.5)" strokeDasharray="4 4"/>
-      <text x="4" y={h * 0.32 - 4} fill="oklch(0.72 0.22 25)" fontSize="9" fontFamily="monospace">CRITICAL 6.0/m²</text>
+      <text x="4" y={h * 0.32 - 4} fill="oklch(0.72 0.22 25)" fontSize="9" fontFamily="monospace">{t.dashboard.critical}</text>
     </svg>
   );
 }
@@ -1514,7 +1558,7 @@ function Team({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
 }
 
 /* ---------------- VISION ---------------- */
-function Vision() {
+function Vision({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   return (
     <section className="relative overflow-hidden py-32">
       <div className="absolute inset-0">
@@ -1524,14 +1568,14 @@ function Vision() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-16 lg:grid-cols-2">
           <div>
-            <Reveal><Eyebrow>Vision</Eyebrow></Reveal>
+            <Reveal><Eyebrow>{t.vision.eyebrow}</Eyebrow></Reveal>
             <Reveal delay={100}>
               <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-6xl">
-                <span className="text-muted-foreground">Today,</span><br/>
-                we predict crowds.<br/>
-                <span className="text-muted-foreground">Tomorrow,</span><br/>
-                <span className="text-gradient-emerald">a complete AI infrastructure</span><br/>
-                <span className="text-gradient-gold">protecting every pilgrim.</span>
+                <span className="text-muted-foreground">{t.vision.today}</span><br/>
+                {t.vision.predict}<br/>
+                <span className="text-muted-foreground">{t.vision.tomorrow}</span><br/>
+                <span className="text-gradient-emerald">{t.vision.infrastructure}</span><br/>
+                <span className="text-gradient-gold">{t.vision.protecting}</span>
               </h2>
             </Reveal>
           </div>
@@ -1539,10 +1583,10 @@ function Vision() {
             <div className="glass-strong rounded-3xl p-8">
               <div className="space-y-6">
                 {[
-                  { p: "Phase 01", t: "Predictive Density", d: "Deploy CSRNet + LSTM across primary zones." },
-                  { p: "Phase 02", t: "Multi-Modal Fusion", d: "IoT sensors, mobile signals & thermal imagery." },
-                  { p: "Phase 03", t: "Autonomous Response", d: "AI-driven signage, routing, resource allocation." },
-                  { p: "Phase 04", t: "Nation-scale Deployment", d: "Kingdom-wide safety infrastructure aligned with Vision 2030." },
+                  { p: t.vision.phase01, t: t.vision.phase01Title, d: t.vision.phase01Desc },
+                  { p: t.vision.phase02, t: t.vision.phase02Title, d: t.vision.phase02Desc },
+                  { p: t.vision.phase03, t: t.vision.phase03Title, d: t.vision.phase03Desc },
+                  { p: t.vision.phase04, t: t.vision.phase04Title, d: t.vision.phase04Desc },
                 ].map((r) => (
                   <div key={r.t} className="border-l-2 border-[color:var(--emerald-glow)]/40 pl-5">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-[color:var(--gold)]">{r.p}</div>
@@ -1583,7 +1627,7 @@ function StayTuned({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }
 }
 
 /* ---------------- FOOTER ---------------- */
-function Footer() {
+function Footer({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
   return (
     <footer className="relative border-t border-white/5 py-16">
       <div className="mx-auto max-w-7xl px-6">
@@ -1597,26 +1641,26 @@ function Footer() {
               </div>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              Predicting crowd risks before they become emergencies.
+              {t.footer.description}
             </p>
           </div>
           <div>
-            <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Program</div>
+            <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.footer.program}</div>
             <div className="mt-4 space-y-2 text-sm">
-              <div>MCIT Hajj &amp; Umrah Tech Challenge</div>
-              <div className="text-muted-foreground">Kingdom of Saudi Arabia · 2026</div>
-              <div className="text-muted-foreground">Aligned with Saudi Vision 2030</div>
+              <div>{t.footer.programName}</div>
+              <div className="text-muted-foreground">{t.footer.location}</div>
+              <div className="text-muted-foreground">{t.footer.vision}</div>
             </div>
           </div>
           <div>
-            <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Team</div>
+            <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{t.footer.team}</div>
             <div className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <div>Engineering Students</div>
+              <div>{t.footer.teamMembers}</div>
             </div>
           </div>
         </div>
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-8 text-xs text-muted-foreground md:flex-row md:items-center">
-          <div>© 2026 Tafweej.</div>
+          <div>{t.footer.copyright}</div>
         </div>
       </div>
     </footer>
