@@ -46,6 +46,21 @@ const translations = {
         { t: "إرسال تنبيهات", d: "يخطر السلطات فوراً عند ارتفاع المخاطر" },
       ],
     },
+    liveDemo: {
+      eyebrow: "عرض حي",
+      title: "شاهد تفويج يفكّر،",
+      title2: "قبل دقائق.",
+      description: "محاكاة مفاهيمية للطواف حول الكعبة. تتصاعد الكثافة في قطاع واحد — يتنبأ تفويج بها ويوصي بإعادة التوجيه قبل أن يصبح القطاع حرجاً.",
+      label: "الطواف — محاكاة مفاهيمية",
+      live: "مباشر",
+      nominal: "جميع المناطق طبيعية — مراقبة ٢٤ قطاعاً",
+      watch: "ارتفاع الكثافة — القطاع ١٤ تحت المراقبة",
+      forecast: "⚠ تنبؤ تفويج — القطاع ١٤ حرج خلال ~{s} ث · يُنصح بإعادة التوجيه عبر البوابة ب",
+      critical: "القطاع ١٤ حرج — بدون التنبؤ، هنا يكتشف المشغّلون الخطر",
+      intervene: "التدخل نشط — أُعيد توجيه التدفق عبر البوابة ب",
+      stable: "استقرت المنطقة — وقت الاستباق أحدث الفرق",
+      note: "محاكاة مفاهيمية — ليست بيانات ميدانية",
+    },
     team: {
       title: "خمسة مهندسين.",
       subtitle: "مهمة واحدة.",
@@ -186,6 +201,21 @@ const translations = {
         { t: "Assess Risk", d: "Classifies danger levels: Safe, Watch, Warning, Critical" },
         { t: "Send Alerts", d: "Notifies authorities immediately when risks rise" },
       ],
+    },
+    liveDemo: {
+      eyebrow: "Live Demo",
+      title: "Watch Tafweej think,",
+      title2: "minutes ahead.",
+      description: "A concept simulation of tawaf around the Kaaba. Density builds in one sector — Tafweej forecasts it and recommends a reroute before the zone turns critical.",
+      label: "Tawaf — concept simulation",
+      live: "Live",
+      nominal: "ALL ZONES NOMINAL — MONITORING 24 SECTORS",
+      watch: "DENSITY RISING — SECTOR 14 UNDER WATCH",
+      forecast: "⚠ TAFWEEJ FORECAST — SECTOR 14 CRITICAL IN ~{s}s · RECOMMEND REROUTE VIA GATE B",
+      critical: "SECTOR 14 CRITICAL — WITHOUT FORECAST, THIS IS WHERE OPERATORS FIND OUT",
+      intervene: "INTERVENTION ACTIVE — FLOW REROUTED VIA GATE B",
+      stable: "ZONE STABILIZED — LEAD TIME MADE THE DIFFERENCE",
+      note: "Concept simulation — not field data.",
     },
     team: {
       title: "Five engineers.",
@@ -434,6 +464,7 @@ function Landing() {
       <Hero lang={lang} t={t} />
       <Problem lang={lang} t={t} />
       <Solution lang={lang} t={t} />
+      <LiveDemo lang={lang} t={t} />
       <HowAI lang={lang} t={t} />
       <RiskLevels lang={lang} t={t} />
       <Dashboard lang={lang} t={t} />
@@ -785,6 +816,208 @@ function StepIcon({ name }: { name: string }) {
         {paths[name]}
       </svg>
     </div>
+  );
+}
+
+/* ---------------- LIVE DEMO (tawaf simulation) ---------------- */
+type Pilgrim = { a: number; r: number; hf: number; w: number; wob: number; c: number };
+
+function LiveDemo({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const dotRef = useRef<HTMLSpanElement>(null);
+  const hudRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  // keep the running loop pointed at the latest translations (for the AR/EN toggle)
+  const strings = useRef(t.liveDemo);
+  strings.current = t.liveDemo;
+
+  useEffect(() => {
+    const cv = canvasRef.current;
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    if (!ctx) return;
+
+    let W = 0, H = 0, CX = 0, CY = 0, S = 0, RMIN = 0, RMAX = 0, DPR = 1;
+    let bgc: HTMLCanvasElement, fgc: HTMLCanvasElement;
+    const HIJRA = -3 * Math.PI / 4, BA = Math.PI / 4;
+
+    function buildLayers() {
+      bgc = document.createElement("canvas");
+      fgc = document.createElement("canvas");
+      for (const c of [bgc, fgc]) { c.width = W * DPR; c.height = H * DPR; }
+      const b = bgc.getContext("2d")!; b.setTransform(DPR, 0, 0, DPR, 0, 0);
+      const f = fgc.getContext("2d")!; f.setTransform(DPR, 0, 0, DPR, 0, 0);
+      // white marble plaza
+      const mg = b.createRadialGradient(CX, CY, S, CX, CY, RMAX + 70);
+      mg.addColorStop(0, "#f5f0e4"); mg.addColorStop(.72, "#e9e2d1"); mg.addColorStop(1, "#cdc5b1");
+      b.fillStyle = mg; b.fillRect(0, 0, W, H);
+      b.strokeStyle = "rgba(110,100,80,.13)"; b.lineWidth = 1;
+      for (let r = S * 1.3; r <= RMAX; r += (RMAX - S * 1.3) / 5) { b.beginPath(); b.arc(CX, CY, r, 0, Math.PI * 2); b.stroke(); }
+      b.strokeStyle = "rgba(110,100,80,.07)";
+      for (let a = 0; a < Math.PI * 2; a += Math.PI / 12) {
+        b.beginPath(); b.moveTo(CX + Math.cos(a) * S * 1.3, CY + Math.sin(a) * S * 1.3);
+        b.lineTo(CX + Math.cos(a) * RMAX, CY + Math.sin(a) * RMAX); b.stroke();
+      }
+      b.beginPath(); b.arc(CX, CY, RMAX + 34, 0, Math.PI * 2); // colonnade
+      b.lineWidth = 26; b.strokeStyle = "#c9c0aa"; b.stroke();
+      b.fillStyle = "#a89d83";
+      for (let a = 0; a < Math.PI * 2; a += Math.PI / 18) {
+        b.beginPath(); b.arc(CX + Math.cos(a) * (RMAX + 34), CY + Math.sin(a) * (RMAX + 34), 2.6, 0, Math.PI * 2); b.fill();
+      }
+      const bx = CX + Math.cos(BA) * S * .71, by = CY + Math.sin(BA) * S * .71;
+      b.strokeStyle = "rgba(90,80,60,.28)"; b.lineWidth = 1;
+      b.beginPath(); b.moveTo(bx, by);
+      b.lineTo(CX + Math.cos(BA) * (RMAX + 6), CY + Math.sin(BA) * (RMAX + 6)); b.stroke();
+      // Hijr Ismail, Kaaba (kiswa + gold hizam + door), Maqam Ibrahim, Black Stone
+      f.lineCap = "round";
+      f.strokeStyle = "rgba(70,62,45,.28)"; f.lineWidth = 8;
+      f.beginPath(); f.arc(CX + 2, CY + 3, S * .95, HIJRA - 1.0, HIJRA + 1.0); f.stroke();
+      f.strokeStyle = "#faf6ec"; f.lineWidth = 5;
+      f.beginPath(); f.arc(CX, CY, S * .95, HIJRA - 1.0, HIJRA + 1.0); f.stroke();
+      f.fillStyle = "rgba(55,48,34,.38)";
+      f.beginPath(); f.ellipse(CX + 6, CY + 9, S * .78, S * .68, 0, 0, Math.PI * 2); f.fill();
+      const kg = f.createLinearGradient(CX - S / 2, CY - S / 2, CX + S / 2, CY + S / 2);
+      kg.addColorStop(0, "#1b1b1f"); kg.addColorStop(.45, "#0a0a0c"); kg.addColorStop(1, "#151517");
+      f.fillStyle = kg;
+      f.beginPath(); f.roundRect(CX - S / 2, CY - S / 2, S, S, 3); f.fill();
+      f.strokeStyle = "rgba(0,0,0,.65)"; f.lineWidth = 1; f.stroke();
+      f.strokeStyle = "rgba(212,175,55,.85)"; f.lineWidth = 2;
+      f.beginPath(); f.roundRect(CX - S / 2 + 5, CY - S / 2 + 5, S - 10, S - 10, 2); f.stroke();
+      f.fillStyle = "rgba(212,175,55,.9)";
+      f.fillRect(CX + S / 2 - 3.5, CY - S * .12, 3.5, S * .24);
+      const mx = CX + Math.cos(BA - .35) * S * 1.55, my = CY + Math.sin(BA - .35) * S * 1.55;
+      f.fillStyle = "#D4AF37";
+      f.beginPath(); f.arc(mx, my, 4, 0, Math.PI * 2); f.fill();
+      f.strokeStyle = "rgba(60,50,30,.5)"; f.lineWidth = 1; f.stroke();
+      f.fillStyle = "#E4C566";
+      f.beginPath(); f.arc(bx, by, 3, 0, Math.PI * 2); f.fill();
+      f.strokeStyle = "rgba(60,50,30,.6)"; f.stroke();
+    }
+
+    function resize() {
+      DPR = Math.min(window.devicePixelRatio || 1, 1.25);
+      W = cv!.clientWidth; H = cv!.clientHeight;
+      cv!.width = W * DPR; cv!.height = H * DPR; ctx!.setTransform(DPR, 0, 0, DPR, 0, 0);
+      CX = W / 2; CY = H / 2; S = Math.min(W, H) * .14; RMIN = S * .88; RMAX = Math.min(W, H) * .45;
+      buildLayers();
+    }
+
+    const N = 1600;
+    const P: Pilgrim[] = [];
+    for (let i = 0; i < N; i++) {
+      const c = Math.random();
+      // home stored as a fraction of the ring; actual radius derived each frame (resize-safe)
+      P.push({ a: Math.random() * Math.PI * 2, r: -1, hf: Math.pow(Math.random(), 1.7), w: .5 + Math.random() * .9, wob: Math.random() * Math.PI * 2, c: c < .55 ? 0 : c < .82 ? 1 : c < .94 ? 2 : 3 });
+    }
+    const CYCLE = 34000, T_BUILD = 6000, T_FORE = 9000, T_CRIT = 19000, T_INT = 22500, T_STAB = 30000;
+    let start = performance.now();
+    const surgeA = 0.4;
+    const phase = (ms: number) => ms < T_BUILD ? "idle" : ms < T_CRIT ? "build" : ms < T_INT ? "crit" : ms < T_STAB ? "intervene" : "recover";
+    const angDist = (a: number, b: number) => { let d = Math.abs(a - b) % (Math.PI * 2); return d > Math.PI ? Math.PI * 2 - d : d; };
+
+    function setHud(ms: number) {
+      const s = strings.current, p = phase(ms), lead = Math.max(0, Math.ceil((T_CRIT - ms) / 1000));
+      let dot = "bg-emerald-400", border = "border-white/10", text = "text-muted-foreground", msg: string;
+      if (p === "idle") msg = s.nominal;
+      else if (p === "build" && ms >= T_FORE) { msg = s.forecast.replace("{s}", String(lead)); dot = "bg-amber-400"; border = "border-amber-400/40"; text = "text-amber-300"; }
+      else if (p === "build") msg = s.watch;
+      else if (p === "crit") { msg = s.critical; dot = "bg-red-500"; border = "border-red-500/40"; text = "text-red-400"; }
+      else if (p === "intervene") { msg = s.intervene; dot = "bg-amber-400"; border = "border-amber-400/40"; text = "text-amber-300"; }
+      else msg = s.stable;
+      if (dotRef.current) dotRef.current.className = "h-2 w-2 shrink-0 rounded-full transition-colors " + dot;
+      if (hudRef.current) hudRef.current.className = "mt-3 flex items-center gap-3 rounded-xl border bg-white/[0.03] px-4 py-3 text-xs font-medium transition-colors md:text-sm " + border + " " + text;
+      if (textRef.current) textRef.current.textContent = msg;
+    }
+
+    let lastHud = 0, raf = 0;
+    function tick(now: number) {
+      const ms = (now - start) % CYCLE, p = phase(ms);
+      if (now - lastHud > 250) { setHud(ms); lastHud = now; }
+      ctx!.drawImage(bgc, 0, 0, W, H);
+      if (p !== "idle") {
+        const heat = p === "crit" ? 1 : (p === "build" ? Math.min(1, (ms - T_BUILD) / (T_CRIT - T_BUILD)) : Math.max(0, 1 - (ms - T_INT) / 6000));
+        if (heat > 0.02) {
+          const col = p === "crit" ? "239,68,68" : "245,158,11";
+          ctx!.fillStyle = `rgba(${col},${.08 + .20 * heat})`;
+          ctx!.beginPath(); ctx!.moveTo(CX, CY);
+          ctx!.arc(CX, CY, RMAX + 8, surgeA - .5, surgeA + .5); ctx!.closePath(); ctx!.fill();
+          ctx!.strokeStyle = `rgba(${col},${.45 + .4 * heat})`; ctx!.lineWidth = 1.5;
+          ctx!.beginPath(); ctx!.arc(CX, CY, RMAX + 8, surgeA - .5, surgeA + .5); ctx!.stroke();
+        }
+      }
+      const heatNow = p === "crit" ? 1 : (p === "build" ? Math.min(1, (ms - T_BUILD) / (T_CRIT - T_BUILD)) : 0);
+      const dots = [new Path2D(), new Path2D(), new Path2D(), new Path2D()];
+      const warm = new Path2D(), hot = new Path2D();
+      for (const q of P) {
+        const home = RMIN + q.hf * (RMAX - RMIN);
+        if (q.r < 0) q.r = home; // lazy init once dimensions exist
+        const near = angDist(q.a, surgeA) < .55;
+        let speed = q.w * (38 / q.r);
+        if ((p === "build" || p === "crit") && near) speed *= .22;
+        if (p === "intervene" && near) { speed *= 2.4; q.r = Math.min(RMAX, q.r + .35); }
+        else if (p !== "build" && p !== "crit") { q.r += (home - q.r) * .012 + Math.sin(now / 900 + q.wob) * .04; }
+        const minR = angDist(q.a, HIJRA) < .72 ? S * 1.18 : RMIN;
+        if (q.r < minR) q.r += (minR - q.r) * .3;
+        q.a += speed * .016;
+        const x = CX + Math.cos(q.a) * q.r, y = CY + Math.sin(q.a) * q.r;
+        let d = dots[q.c], cr = 1.3;
+        if (near && heatNow > 0) { if (heatNow > .85) { d = hot; cr = 2.0; } else if (heatNow > .45) { d = warm; cr = 1.7; } }
+        d.moveTo(x + cr, y); d.arc(x, y, cr, 0, Math.PI * 2);
+      }
+      // crowd tones tuned to READ against the light marble (heads/shadows), like an aerial photo
+      ctx!.fillStyle = "rgba(96,104,118,.92)"; ctx!.fill(dots[0]);   // slate — most pilgrims
+      ctx!.fillStyle = "rgba(150,124,96,.92)"; ctx!.fill(dots[1]);   // warm tan
+      ctx!.fillStyle = "rgba(52,50,54,.94)"; ctx!.fill(dots[2]);     // dark heads
+      ctx!.fillStyle = "rgba(238,235,228,.92)"; ctx!.fill(dots[3]);  // occasional white robe fleck
+      ctx!.fillStyle = "rgba(245,158,11,.95)"; ctx!.fill(warm);
+      ctx!.fillStyle = "rgba(239,68,68,.95)"; ctx!.fill(hot);
+      ctx!.drawImage(fgc, 0, 0, W, H);
+      raf = requestAnimationFrame(tick);
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    raf = requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+  }, []);
+
+  return (
+    <section id="demo" className="relative py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <Reveal><Eyebrow>{t.liveDemo.eyebrow}</Eyebrow></Reveal>
+          <Reveal delay={100}>
+            <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
+              {t.liveDemo.title}<br /><span className="text-gradient-emerald">{t.liveDemo.title2}</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="mt-6 text-lg text-muted-foreground">{t.liveDemo.description}</p>
+          </Reveal>
+        </div>
+
+        <Reveal delay={200}>
+          <div className="mx-auto mt-16 max-w-3xl">
+            <div className="glass-strong overflow-hidden rounded-3xl p-4 shadow-[var(--shadow-elegant)] md:p-6">
+              <div className="flex items-center justify-between px-2 pb-3 text-[10px] uppercase tracking-widest text-muted-foreground">
+                <span>{t.liveDemo.label}</span>
+                <span className="flex items-center gap-1.5 text-[color:var(--emerald-glow)]">
+                  <span className="h-1.5 w-1.5 animate-glow-pulse rounded-full bg-current" /> {t.liveDemo.live}
+                </span>
+              </div>
+              <div className="relative overflow-hidden rounded-xl" style={{ aspectRatio: "1 / 1" }}>
+                <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+              </div>
+              <div ref={hudRef} className="mt-3 flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-xs font-medium text-muted-foreground transition-colors md:text-sm" dir={lang === "ar" ? "rtl" : "ltr"}>
+                <span ref={dotRef} className="h-2 w-2 shrink-0 rounded-full bg-emerald-400 transition-colors" />
+                <span ref={textRef}>{t.liveDemo.nominal}</span>
+              </div>
+              <p className="mt-3 text-center text-[11px] text-muted-foreground/70">{t.liveDemo.note}</p>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
   );
 }
 
