@@ -473,7 +473,7 @@ function Landing() {
       <Tech lang={lang} t={t} />
       <WhyTafweej lang={lang} t={t} />
       <Team lang={lang} t={t} />
-      <Vision />
+      <Vision lang={lang} t={t} />
       <StayTuned lang={lang} t={t} />
       <Footer />
     </div>
@@ -1515,7 +1515,14 @@ function Team({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
 }
 
 /* ---------------- VISION ---------------- */
-function Vision() {
+function Vision({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
+  const v = t.vision;
+  const phases = [
+    { p: v.phase01, t: v.phase01Title, d: v.phase01Desc },
+    { p: v.phase02, t: v.phase02Title, d: v.phase02Desc },
+    { p: v.phase03, t: v.phase03Title, d: v.phase03Desc },
+    { p: v.phase04, t: v.phase04Title, d: v.phase04Desc },
+  ];
   return (
     <section className="relative overflow-hidden py-32">
       <div className="absolute inset-0">
@@ -1525,27 +1532,22 @@ function Vision() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-16 lg:grid-cols-2">
           <div>
-            <Reveal><Eyebrow>Vision</Eyebrow></Reveal>
+            <Reveal><Eyebrow>{lang === "ar" ? "الرؤية" : "Vision"}</Eyebrow></Reveal>
             <Reveal delay={100}>
               <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-6xl">
-                <span className="text-muted-foreground">Today,</span><br/>
-                we predict crowds.<br/>
-                <span className="text-muted-foreground">Tomorrow,</span><br/>
-                <span className="text-gradient-emerald">a complete AI infrastructure</span><br/>
-                <span className="text-gradient-gold">protecting every pilgrim.</span>
+                <span className="text-muted-foreground">{v.today}</span><br/>
+                {v.predict}<br/>
+                <span className="text-muted-foreground">{v.tomorrow}</span><br/>
+                <span className="text-gradient-emerald">{v.infrastructure}</span><br/>
+                <span className="text-gradient-gold">{v.protecting}</span>
               </h2>
             </Reveal>
           </div>
           <Reveal delay={200}>
             <div className="glass-strong rounded-3xl p-8">
               <div className="space-y-6">
-                {[
-                  { p: "Phase 01", t: "Predictive Density", d: "Deploy CSRNet + LSTM across primary zones." },
-                  { p: "Phase 02", t: "Multi-Modal Fusion", d: "IoT sensors, mobile signals & thermal imagery." },
-                  { p: "Phase 03", t: "Autonomous Response", d: "AI-driven signage, routing, resource allocation." },
-                  { p: "Phase 04", t: "Nation-scale Deployment", d: "Kingdom-wide safety infrastructure aligned with Vision 2030." },
-                ].map((r) => (
-                  <div key={r.t} className="border-l-2 border-[color:var(--emerald-glow)]/40 pl-5">
+                {phases.map((r) => (
+                  <div key={r.t} className="border-s-2 border-[color:var(--emerald-glow)]/40 ps-5">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-[color:var(--gold)]">{r.p}</div>
                     <div className="mt-1 font-display text-lg font-semibold">{r.t}</div>
                     <div className="text-sm text-muted-foreground">{r.d}</div>
