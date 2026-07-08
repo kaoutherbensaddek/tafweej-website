@@ -65,6 +65,7 @@ const translations = {
       title: "خمسة مهندسين.",
       subtitle: "مهمة واحدة.",
       description: "طلاب هندسة، بنات مشاريع تطبيقية.",
+      injaz: "برنامج إنجاز هو برنامج ريادة الأعمال وتطوير المهارات المهنية الذي يزود الطلاب بمهارات عملية في الأعمال والقيادة والثقافة المالية والابتكار من خلال ورش العمل والإرشاد والمشاريع الواقعية. نحن مشاركون في هذا البرنامج.",
     },
     stayTuned: {
       title: "ابقوا على اطلاع.",
@@ -243,6 +244,7 @@ const translations = {
       title: "Five engineers.",
       subtitle: "One mission.",
       description: "Engineering students, builders of applied projects.",
+      injaz: "The INJAZ Program is a hands-on entrepreneurship and career development program that equips students with practical business, leadership, financial literacy, and innovation skills through workshops, mentorship, and real-world projects. We are participants in this program.",
     },
     stayTuned: {
       title: "Stay tuned.",
@@ -807,7 +809,7 @@ function Solution({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en })
           <Reveal delay={100}>
             <h2 className="mt-6 font-display text-4xl font-bold leading-tight md:text-5xl">
               {t.solution.title}<br />
-              and <span className="text-gradient-emerald">{t.solution.subtitle}</span>
+              <span className="text-gradient-emerald">{t.solution.subtitle}</span>
             </h2>
           </Reveal>
           <Reveal delay={200}>
@@ -1519,6 +1521,11 @@ function Team({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
           <Reveal delay={200}>
             <p className="mt-6 text-muted-foreground">
               {t.team.description}
+            </p>
+          </Reveal>
+          <Reveal delay={300}>
+            <p className="mt-3 text-sm text-muted-foreground/70">
+              {t.team.injaz}
             </p>
           </Reveal>
         </div>
