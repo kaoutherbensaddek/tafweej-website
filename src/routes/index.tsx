@@ -65,7 +65,7 @@ const translations = {
       title: "خمسة مهندسين.",
       subtitle: "مهمة واحدة.",
       description: "طلاب هندسة، بنات مشاريع تطبيقية.",
-      injaz: "برنامج إنجاز هو برنامج ريادة الأعمال وتطوير المهارات المهنية الذي يزود الطلاب بمهارات عملية في الأعمال والقيادة والثقافة المالية والابتكار من خلال ورش العمل والإرشاد والمشاريع الواقعية. نحن مشاركون في هذا البرنامج.",
+      injaz: "وصلنا إلى نصف النهائي في برنامج إنجاز لريادة الأعمال، وهو برنامج يزود الطلاب بمهارات عملية في الأعمال والقيادة والابتكار.",
     },
     stayTuned: {
       title: "ابقوا على اطلاع.",
@@ -244,7 +244,7 @@ const translations = {
       title: "Five engineers.",
       subtitle: "One mission.",
       description: "Engineering students, builders of applied projects.",
-      injaz: "The INJAZ Program is a hands-on entrepreneurship and career development program that equips students with practical business, leadership, financial literacy, and innovation skills through workshops, mentorship, and real-world projects. We are participants in this program.",
+      injaz: "We reached the semi-finals in the INJAZ entrepreneurship program, which equips students with practical business, leadership, and innovation skills.",
     },
     stayTuned: {
       title: "Stay tuned.",
