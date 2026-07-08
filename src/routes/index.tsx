@@ -64,8 +64,9 @@ const translations = {
     team: {
       title: "خمسة مهندسين.",
       subtitle: "مهمة واحدة.",
-      description: "طلاب هندسة، بنات مشاريع تطبيقية.",
-      injaz: "وصلنا إلى نصف النهائي في برنامج إنجاز لريادة الأعمال، وهو برنامج يزود الطلاب بمهارات عملية في الأعمال والقيادة والابتكار.",
+      description: "طلاب هندسة، بناة مشاريع تطبيقية.",
+      ensia: "طلاب في المدرسة الوطنية العليا للذكاء الاصطناعي (ENSIA)، شغوفون بالذكاء الاصطناعي والمشاريع العملية المبتكرة.",
+      injaz: "وصلنا إلى نصف النهائي في برنامج إنجاز العرب فرع الجزائر، برنامج يزود الطلاب بمهارات عملية في الأعمال والقيادة والابتكار.",
     },
     stayTuned: {
       title: "ابقوا على اطلاع.",
@@ -244,6 +245,7 @@ const translations = {
       title: "Five engineers.",
       subtitle: "One mission.",
       description: "Engineering students, builders of applied projects.",
+      ensia: "Students at the National Higher School of Artificial Intelligence (ENSIA), passionate about AI and innovative practical projects.",
       injaz: "We reached the semi-finals in the INJAZ entrepreneurship program, which equips students with practical business, leadership, and innovation skills.",
     },
     stayTuned: {
@@ -1524,6 +1526,11 @@ function Team({ lang, t }: { lang: "ar" | "en"; t: typeof translations.en }) {
             </p>
           </Reveal>
           <Reveal delay={300}>
+            <p className="mt-3 text-sm text-muted-foreground/70">
+              {t.team.ensia}
+            </p>
+          </Reveal>
+          <Reveal delay={400}>
             <p className="mt-3 text-sm text-muted-foreground/70">
               {t.team.injaz}
             </p>
